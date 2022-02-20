@@ -6,7 +6,7 @@ const Joi = require('joi');
 const cors = require('cors');
 
 const { Router } = express;
-const Container = require('./Contenedor.js');
+
 
 const Debug = require('./utils/debug/debug.js');
 const logger = require('./utils/logs/logs.js');
@@ -55,7 +55,6 @@ interface product = {
 /////
 const log = logger;
 const db = new Debug();
-const container = new Container('./data/productos.txt');
 
 //Config multer
 let storage = multer.diskStorage({

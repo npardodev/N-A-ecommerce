@@ -1,4 +1,3 @@
-
 //importo componentes
 //let apiAuth = require('..components/auth');
 //let apiCarrito = require('..components/carrito');
@@ -7,8 +6,8 @@
 module.exports = app => {
 
     apiCarrito(app);
-    apiAuth(app );
-  
+    apiAuth(app);
+
 }
 
 ////////////////////////////////////////////////////////////////////////

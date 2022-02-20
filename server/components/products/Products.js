@@ -2,7 +2,7 @@ const fs = require('fs').promises;
 
 const checkInArray = (id, array) => { return (array.filter(e => e.id === id).length > 0) ? true : false };
 
-class Container {
+class Products {
 
     constructor(filepath) {
         this.path = filepath;
@@ -100,4 +100,4 @@ class Container {
     }
 }
 
-module.exports = Container;
+module.exports = Products;
