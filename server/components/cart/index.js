@@ -6,7 +6,12 @@ const apiShopCart = (app) => {
     let routerCart = express.Router();
     app.use(cartRouterPath, routerCart);
 
-    routerCart.get('/test2', cartController.GETproducts);
+    //Rutas
+    routerCart.post('/', cartController.POSTcart);
+    routerCart.delete('/:id', cartController.DELcart);
+    routerCart.get('/:id/productos', cartController.GETcart);
+    routerCart.post('/:id/productos', cartController.POSTcartProduct);
+    routerCart.delete('/:id/productos/:id_prod', cartController.DELcartProduct);
 }
 
 module.exports = apiShopCart;
