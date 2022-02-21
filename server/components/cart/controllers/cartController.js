@@ -1,78 +1,40 @@
 const { config } = require("../../../config/config");
 
-//const productsService = require("../services/cartServices");
 
+const cartServices = require("../services/cartServices");
 
-const GETproducts = async(req, res, next) => {
-    console.log("Get al carrito");
-    res.json("Get al carrito");
-}
+class Cart {
 
-const POSTcart = async(req, res, next) => {
-
-}
-
-const DELcart = async(req, res, next) => {
-
-}
-
-const GETcart = async(req, res, next) => {
-
-}
-
-const POSTcartProduct = async(req, res, next) => {
-
-}
-const DELcartProduct = async(req, res, next) => {
-
-}
-
-module.exports = {
-    GETproducts,
-    POSTcart,
-    DELcart,
-    GETcart,
-    POSTcartProduct,
-    DELcartProduct
-};
-
-
-////////////////////////////////////////////////////////////////////////
-////////////////////////// RUTAS CARRITO ///////////////////////////////
-////////////////////////////////////////////////////////////////////////
-/*
-//Crea carrito y devuelvo el id
-routerShoppingCart.post('/', (req, res, next) => {
-    res.send("Crea carrito y devuelvo el id");
-})
-
-// Lista de productos dentro del carrito
-routerShoppingCart.get('/:id/productos', (req, res) => {
-    res.send("Listado de productos en el carrito");
-});
-
-//Incorpora productos al carrito por su id
-routerShoppingCart.post('/:id/productos', async(req, res, next) => {
-    let product = req.body;
-    try {
-        let result = await container.save(product);
-        res.json({ resultado: `Producto subido en forma correcta` });
-    } catch {
-        res.json({ resultado: `Error agregando producto` });
+    POSTcart = async(req, res, next) => {
+        res.send("Crea carrito y devuelvo el id");
+        //let response = await cartServices.cartCreate();
     }
 
-})
+    GETcart = async(req, res, next) => {
+        res.send("Retorna el carrito y su informacion");
+        //let response = await cartServices.cartGetInfo();
+    }
+
+    DELcart = async(req, res, next) => {
+        res.send("Vacia un carrito y lo elimina");
+        //let response = await cartServices.cartDelete();
+    }
+
+    GETproducts = async(req, res, next) => {
+        res.json("Listado de productos en el carrito");
+        //let response = await cartServices.getProducts();
+    }
+
+    POSTcartProduct = async(req, res, next) => {
+        //let response = await cartServices.addProduct();
+        res.json("Para incorporar productos al carrito por su id de producto");
+    }
+
+    DELcartProduct = async(req, res, next) => {
+        //let response = await cartServices.deleteProduct();
+        res.send("Eliminar un producto del carrito por su id de carrito y de producto");
+    }
+}
 
 
-//Eliminar un producto del carrito por su id de carrito y de producto
-routerShoppingCart.delete('/:id/productos/:id_prod', async(req, res, next) => {
-    res.send(`Eliminar un producto del carrito por su id de carrito y de producto`);
-});
-
-//modifica (esto no lo piden)
-routerShoppingCart.put('/:id/productos', async(req, res, next) => {
-    let { id } = req.params;
-    let { newProduct } = req.body;
-    let result = await container.modifyById(id, newProduct);
-})
-**/
+module.exports = new Cart();

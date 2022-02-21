@@ -1,50 +1,31 @@
 const fs = require('fs').promises;
+
 const checkInArray = (id, array) => { return (array.filter(e => e.id === id).length > 0) ? true : false };
+
+class CartItem {
+    constructor(title, price, quantity) {
+        this.title = title;
+        this.price = price;
+        this.quantity = quantity;
+        this.updateId.bind(this);
+        this.updateQuantity.bind(this)
+    }
+
+    updateId(id) {
+        // Obtener id
+    }
+
+    updateQuantity(quantity) {
+        this.quantity += quantity;
+    }
+}
 
 class Cart {
 
-    constructor(path) {
-        this.id = "";
-        this.user = "";
+    constructor() {
+        this.id = id;
         this.items = [];
-        this.path = path;
-    }
-
-    async cartCreate(path) {
-        try {
-            await fs.writeFile(`${this.path}`, "");
-            console.log(`Archivo creado en forma exitosa`);
-
-        } catch (error) {
-            console.log(`Falla en creado de archivo ${err}`);
-        }
-    }
-
-    async cartGetInfo() {
-
-    }
-
-    async cartDelete(path) {
-
-        try {
-            await fs.unlink(`${this.path}`);
-
-        } catch (err) {
-            console.log(`Falla en borrado de archivo, ${err}`);
-        }
-    }
-
-
-    async getProducts() {
-        return items;
-    }
-
-    async addProduct() {
-
-    }
-
-    async deleteProduct() {
-
+        this.user = user;
     }
 
     verifyItemExists(id) {
@@ -71,7 +52,16 @@ class Cart {
     }
 
 
+    async create(path) {
 
+        try {
+            await fs.writeFile(`${path}`, "");
+            console.log(`Archivo creado en forma exitosa`);
+
+        } catch (error) {
+            console.log(`Falla en creado de archivo ${err}`);
+        }
+    }
 
 
     async save(obj) {
@@ -153,4 +143,4 @@ class Cart {
     }
 }
 
-module.exports = new Cart();
+module.exports = Cart;
