@@ -1,6 +1,5 @@
 const fs = require('fs').promises;
 
-const checkInArray = (id, array) => { return (array.filter(e => e.id === id).length > 0) ? true : false };
 
 class Products {
 

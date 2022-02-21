@@ -6,6 +6,7 @@ const CartSchema = new Schema({
     timestamp: { type: Date, required: true },
     products: { type: Array, required: true }
 });
+//Agregar validaciones a los campos!
 
 
 module.exports = mongoose.model('Cart', CartSchema);

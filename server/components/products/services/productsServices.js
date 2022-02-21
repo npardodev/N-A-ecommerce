@@ -1,5 +1,7 @@
 const Product = require('../../../models/products');
 
+const checkInArray = (id, array) => { return (array.filter(e => e.id === id).length > 0) ? true : false };
+
 class Products {
 
     async getProducts() {
@@ -25,12 +27,10 @@ class Products {
     }
 
     async postProduct(product) {
-        console.log(req.body);
-        const { title, description } = req.body;
-        const product = new Product({ title, description });
+        const prod = new Product({ title, description });
 
         try {
-            const result = await Product.save();
+            const result = await prod.save();
             return result;
         } catch (err) {
             console.log(`Producto no encontrado: ${err}`);
@@ -40,12 +40,8 @@ class Products {
 
 
     async updateProductById(id, newProduct) {
-        const { title, description } = req.body;
-        const id = req.params.id;
-        const newProduct = ({ title, description });
-
         try {
-            const result = await Product.findByIdAndUpdate(id, newProduct);
+            const result = await Product.findByIdAndUpdate(idProd, newProduct);
             return result;
         } catch (err) {
             console.log(`Producto no encontrado: ${err}`);
@@ -55,13 +51,15 @@ class Products {
     }
 
     async deleteProductById(id) {
-        const id = req.params.id;
-        await Product.findByIdAndRemove(id);
 
-        res.json({
-            status: 'Producto eliminado',
-        })
+        try {
+            const result = await Product.findByIdAndRemove(idProd);
+            return result;
+        } catch (err) {
+            console.log(`Producto no encontrado: ${err}`);
+            return null;
+        }
     }
-
-
 }
+
+module.exports = new Products();

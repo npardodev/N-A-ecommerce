@@ -11,7 +11,7 @@ const Debug = require('./utils/debug/debug.js');
 const logger = require('./utils/logs/logs.js');
 
 const log = logger;
-const db = new Debug();
+const debug = new Debug();
 
 //Config multer
 let storage = multer.diskStorage({
@@ -52,7 +52,7 @@ app.get('*', (req, res) => {
 
 //server
 const server = app.listen(config.port, () => {
-    db.info(`Servidor corriendo en el puerto ${config.port}`);
+    debug.info(`Servidor corriendo en el puerto ${config.port}`);
     log.info(`Servidor corriendo en el puerto ${config.port}`);
 })
 
