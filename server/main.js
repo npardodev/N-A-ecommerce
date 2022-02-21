@@ -1,57 +1,15 @@
 const express = require('express');
-
-const multer = require('multer');
+const path = require('path');
 const helmet = require('helmet');
 const Joi = require('joi');
+const multer = require('multer');
 const cors = require('cors');
-
+const morgan = require('morgan');
 const { Router } = express;
-
-
+const { config } = require('./config/config.js');
 const Debug = require('./utils/debug/debug.js');
 const logger = require('./utils/logs/logs.js');
 
-const morgan = require('morgan');
-const path = require('path');
-
-const { config } = require('./config/config.js');
-
-const myRouter = new Router();
-
-/* 
-Crear una variable booleana administrador, cuyo valor configuraremos 
-más adelante con el sistema de login. Según su valor (true ó false) me 
-permitirá alcanzar o no las rutas indicadas. En el caso de recibir un request 
-a una ruta no permitida por el perfil, devolver un objeto de error. Ejemplo: 
-{ error : -1, descripcion: ruta 'x' método 'y' no autorizada}
-
-- Un producto dispondrá de los siguientes campos:  
-id, timestamp, nombre, descripcion, código, foto (url), precio, stock.
-
-- El carrito de compras tendrá la siguiente estructura: 
-id, timestamp(carrito), producto: { id, timestamp(producto), nombre, descripcion, código, foto (url), precio, stock }
-
-enum CurrencyTypes { EUR, USD, ARS };
-
-interface product = {
-    id: number;
-    timestamp: number;
-    name: string;
-    description: string;
-    code: string;
-    image: string;
-    price: string;
-    currency: string;
-    stock: number
-}
-*/
-
-
-
-
-
-
-/////
 const log = logger;
 const db = new Debug();
 
@@ -77,24 +35,22 @@ app.use('/css', express.static('public/css'));
 app.use(morgan('dev'));
 app.use(cors());
 
-//react
+//React
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 //Seguridad
 app.disable('x-powered-by');
 
-
 //SOA
 let serverRoutes = require('./routes');
 serverRoutes(app);
-
 
 //Redirect path inválido
 app.get('*', (req, res) => {
     res.sendFile(__dirname + '/public/NotFound.html');
 });
 
-//Inicia server
+//server
 const server = app.listen(config.port, () => {
     db.info(`Servidor corriendo en el puerto ${config.port}`);
     log.info(`Servidor corriendo en el puerto ${config.port}`);

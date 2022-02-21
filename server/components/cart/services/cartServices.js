@@ -1,3 +1,4 @@
+const Carts = require('../../../models/carts');
 const fs = require('fs').promises;
 const checkInArray = (id, array) => { return (array.filter(e => e.id === id).length > 0) ? true : false };
 
@@ -12,39 +13,73 @@ class Cart {
 
     async cartCreate(path) {
         try {
-            await fs.writeFile(`${this.path}`, "");
-            console.log(`Archivo creado en forma exitosa`);
+            let nuevoCarrito = new Cart();
+            const cart = await Carts.create(nuevoCarrito);
+            console.log(`Carrito creado en forma exitosa`);
+            return cart.id;
 
         } catch (error) {
-            console.log(`Falla en creado de archivo ${err}`);
+            console.log(`Falla en creacion del carrito: ${err}`);
+            return null;
         }
     }
 
-    async cartGetInfo() {
-
-    }
-
-    async cartDelete(path) {
-
+    async cartGetInfo(id) {
         try {
-            await fs.unlink(`${this.path}`);
+            const cart = await Carts.findById(id);
+            return cart;
 
-        } catch (err) {
-            console.log(`Falla en borrado de archivo, ${err}`);
+        } catch (error) {
+            console.log(`Carrito no encontrado: ${err}`);
+            return null;
+        }
+    }
+
+    async cartDelete(id) {
+        try {
+            await Carts.deleteOne({ _id: id });
+            return 0;
+        } catch (error) {
+            console.log(`Carrito no encontrado: ${err}`);
+            return null;
         }
     }
 
 
-    async getProducts() {
-        return items;
+    async getProducts(id) {
+        try {
+            const Cart = await Carts.findById(id);
+            return Cart.items;
+
+        } catch (error) {
+            console.log(`Carrito no encontrado: ${err}`);
+            return null;
+        }
     }
 
-    async addProduct() {
+    async addProduct(id, newProduct) {
+        try {
+            const Cart = await Carts.findById(id);
+            Cart.items.push(newProduct);
+            return 0;
 
+        } catch (error) {
+            console.log(`Carrito no encontrado: ${err}`);
+            return null;
+        }
     }
 
-    async deleteProduct() {
+    async deleteProduct(idCart, idProd) {
+        try {
+            const Cart = await Carts.findById(id);
+            Cart.items = Cart.items.filter(item => item.id !== idProd);
+            //ver si hace falta hacer un .save()?
+            return 0;
 
+        } catch (error) {
+            console.log(`Carrito no encontrado: ${err}`);
+            return null;
+        }
     }
 
     verifyItemExists(id) {

@@ -10,6 +10,7 @@ const ProductSchema = new Schema({
     img: { type: String, required: true },
     stock: { type: Number, required: true }
 });
+//Agregar validaciones a los campos!
 
 
 module.exports = mongoose.model('Product', ProductSchema);

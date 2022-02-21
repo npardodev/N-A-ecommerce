@@ -1,34 +1,42 @@
-const { config } = require("../../../config/config");
 const Products = require('./../Products.js');
-const products = new Products('./../../data/productos.txt');
-//const productsService = require("../services/productsServices");
-
+const productsService = require("../services/productsServices");
 
 const GETproducts = async(req, res, next) => {
     console.log("Pedido de productos");
-    res.json("Pedido de productos");
+    let response = await productsService.getProducts();
+    res.json({
+        status: `Ok`,
+        result: `Productos: ${response} `
+    });
 }
 
 const GETproduct = async(req, res, next) => {
-    res.json("Pedido de 1 producto");
-    console.log("Pedido de 1 producto");
+    const id = req.params.id;
+    let product = await productsService.getProductById(id);
+    res.json({
+        status: `Ok`,
+        result: `Producto: ${product} `
+    });
 }
 
 const POSTproduct = async(req, res, next) => {
     let product = req.body;
-    try {
-        let result = await products.save(product);
-        res.json({ resultado: `Producto subido en forma correcta` });
-    } catch {
-        res.json({ resultado: `Error agregando producto` });
-    }
-
+    let result = await productsService.postProduct(product);
+    res.json({
+        status: `Ok`,
+        result: `Producto agregado: ${result} `
+    });
 }
 
 const PUTproduct = async(req, res, next) => {
     let { id } = req.params;
     let { newProduct } = req.body;
-    let result = await products.modifyById(id, newProduct);
+    let result = await products.updateProductById(id, newProduct);
+
+    res.json({
+        status: `Ok`,
+        result: `Producto agregado: ${result} `
+    });
 }
 
 const DELproduct = async(req, res, next) => {
