@@ -9,7 +9,7 @@ const { Router } = express;
 const { config } = require('./config/config.js');
 const Debug = require('./utils/debug/debug.js');
 const logger = require('./utils/logs/logs.js');
-
+require('./database');
 const log = logger;
 const debug = new Debug();
 
@@ -37,6 +37,11 @@ app.use(cors());
 
 //React
 app.use(express.static(path.resolve(__dirname, '../client/build')));
+/*
+app.use(function(req, res) {
+    res.sendFile(path.join(__dirname, '../client', 'build', 'index.html'));
+});
+*/
 
 //Seguridad
 app.disable('x-powered-by');

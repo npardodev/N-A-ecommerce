@@ -1,8 +1,8 @@
-const Products = require('./../Products.js');
 const productsService = require("../services/productsServices");
 
+
 const GETproducts = async(req, res, next) => {
-    console.log("Pedido de productos");
+    console.log("GET products!");
     let response = await productsService.getProducts();
     res.json({
         status: `Ok`,
@@ -11,6 +11,7 @@ const GETproducts = async(req, res, next) => {
 }
 
 const GETproduct = async(req, res, next) => {
+    console.log("GET product!");
     const id = req.params.id;
     let product = await productsService.getProductById(id);
     res.json({
@@ -20,6 +21,7 @@ const GETproduct = async(req, res, next) => {
 }
 
 const POSTproduct = async(req, res, next) => {
+    console.log("POST product!");
     let product = req.body;
     let result = await productsService.postProduct(product);
     res.json({
@@ -29,6 +31,7 @@ const POSTproduct = async(req, res, next) => {
 }
 
 const PUTproduct = async(req, res, next) => {
+    console.log("PUT product!");
     let { id } = req.params;
     let { newProduct } = req.body;
     let result = await products.updateProductById(id, newProduct);
@@ -40,8 +43,16 @@ const PUTproduct = async(req, res, next) => {
 }
 
 const DELproduct = async(req, res, next) => {
+    console.log("DELETE product!");
     let { id } = req.params;
-    let result = await products.deleteById(id);
+    let result = await productsService.deleteById(id);
+}
+
+
+const BATCHProduct = async(req, res, next) => {
+    console.log("Ejecutando Desafio 9 !");
+
+    let result = await productsService.batchScript();
 }
 
 
@@ -81,5 +92,6 @@ module.exports = {
     GETproduct,
     POSTproduct,
     PUTproduct,
-    DELproduct
+    DELproduct,
+    BATCHProduct
 };

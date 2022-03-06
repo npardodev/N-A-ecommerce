@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
-const config = require('./config');
+const dotenv = require('dotenv');
+const { config } = require('./config/config.js');
 
+mongoose.connect(config.DB_URL, config.DB_OPTIONS)
+const db = mongoose.connection;
 
-mongoose.connect(config.DB_URL)
-    .then(db => {
-        console.log(`Database connection Ok!`);
-    })
-    .catch(err => console.error(err));
+db.on('error', console.error.bind(console, 'Mongodb Connection Error:' + config.DB_URL));
+db.once('open', () => {
+    console.log('Mongodb Connection Successful');
+});
 
-module.exports = { mongoose };
+module.exports = { db };

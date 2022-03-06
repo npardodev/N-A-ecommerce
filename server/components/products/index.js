@@ -8,11 +8,13 @@ const apiProducts = (app) => {
     app.use(productsRouterPath, routerProducts);
 
     //Rutas
-    routerProducts.get('/', checkAuth, productsController.GETproducts);
+    routerProducts.get('/desafio9', checkAuth, productsController.BATCHProduct);
     routerProducts.get('/:id?', checkAuth, productsController.GETproduct);
-    routerProducts.post('/', checkAuth, productsController.POSTproduct);
     routerProducts.put('/:id', checkAuth, productsController.PUTproduct);
     routerProducts.delete('/:id', checkAuth, productsController.DELproduct);
+    routerProducts.get('/', checkAuth, productsController.GETproducts);
+    routerProducts.post('/', checkAuth, productsController.POSTproduct);
+
 }
 
 module.exports = apiProducts;

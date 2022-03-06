@@ -12,5 +12,6 @@ const ProductSchema = new Schema({
 });
 //Agregar validaciones a los campos!
 
+const Products = mongoose.model('Product', ProductSchema);
 
-module.exports = mongoose.model('Product', ProductSchema);
+module.exports = Products;
